@@ -4,22 +4,22 @@ import sys
 imagePath = sys.argv[1]
 cascadePath = sys.argv[2]
 
-faceCascade = cv2.CascadeClassifier(cascadePath)
+doorCascade = cv2.CascadeClassifier(cascadePath)
 
 image = cv2.imread(imagePath)
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-faces = faceCascade.detectMultiScale(
+doors = doorCascade.detectMultiScale(
     gray,
     scaleFactor=1.1,
     minNeighbors=5,
-    minSize=(30, 30),
+    minSize=(25, 50),
     flags=cv2.CASCADE_SCALE_IMAGE
 )
 
-print("Found {0} doors!".format(len(faces)))
+print("Found {0} doors!".format(len(doors)))
 
-for (x, y, w, h) in faces:
+for (x, y, w, h) in doors:
     cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
 cv2.imshow("Door found", image)
